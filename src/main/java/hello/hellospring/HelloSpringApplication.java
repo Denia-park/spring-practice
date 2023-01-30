@@ -1,13 +1,26 @@
 package hello.hellospring;
 
-import org.springframework.boot.SpringApplication;
+import hello.hellospring.practice.RetrofitClient;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import retrofit2.Call;
+
+import java.io.IOException;
 
 @SpringBootApplication
 public class HelloSpringApplication {
 
+    //retrofit 라이브러리의 공식문서를 읽으며 천천히 익혀보세요!
+    //https://square.github.io/retrofit/
     public static void main(String[] args) {
-        SpringApplication.run(HelloSpringApplication.class, args);
+        Call<Object> retrofitTest = RetrofitClient.getApi().retrofitTest(2);//우리는 2페이지를 확인할 것이기 때문에 2를 삽입하겠습니다
+        //Call은 retrofit라이브러리의 인터페이스이며 서버에서 응답하는 값을 담는 역할을 합니다.
+        try {
+            System.out.println(retrofitTest.execute().body());//서버에서 받은 데이터를 확인해보겠습니다.
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+//        SpringApplication.run(HelloSpringApplication.class, args);
     }
 
 }
